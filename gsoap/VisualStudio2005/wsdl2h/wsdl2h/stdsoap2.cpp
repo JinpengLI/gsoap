@@ -4803,6 +4803,8 @@ http_parse(struct soap *soap)
         httpcmd = 4;
       else if (!strncmp(soap->msgbuf, "HEAD ", l = 5))
         httpcmd = 5;
+      else if (!strncmp(soap->msgbuf, "OPTIONS ", l = 8))
+        httpcmd = 6;
     }
     if (s && httpcmd) 
     { size_t m = strlen(soap->endpoint);

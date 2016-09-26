@@ -4611,6 +4611,7 @@ soap_done(struct soap *soap)
   soap->fput = http_405;
   soap->fdel = http_405;
   soap->fhead = http_405;
+  soap->foptions = http_405;
   soap->fform = NULL;
   soap->fposthdr = http_post_header;
   soap->fresponse = http_response;
@@ -4803,6 +4804,8 @@ http_parse(struct soap *soap)
         httpcmd = 4;
       else if (!strncmp(soap->msgbuf, "HEAD ", l = 5))
         httpcmd = 5;
+      else if (!strncmp(soap->msgbuf, "OPTIONS ", l = 8))
+        httpcmd = 6;
     }
     if (s && httpcmd) 
     { size_t m = strlen(soap->endpoint);
@@ -4821,6 +4824,7 @@ http_parse(struct soap *soap)
           case  3: soap->error = soap->fput(soap); break;
           case  4: soap->error = soap->fdel(soap); break;
           case  5: soap->error = soap->fhead(soap); break;
+          case  6: soap->error = soap->foptions(soap); break;
 	  default: soap->error = 405; break;
 	}
         if (soap->error == SOAP_OK)
@@ -7966,6 +7970,7 @@ soap_init(struct soap *soap)
   soap->fput = http_405;
   soap->fdel = http_405;
   soap->fhead = http_405;
+  soap->foptions = http_405;
   soap->fform = NULL;
   soap->fposthdr = http_post_header;
   soap->fresponse = http_response;

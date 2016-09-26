@@ -1697,6 +1697,7 @@ struct SOAP_STD_API soap
   int (*fput)(struct soap*);
   int (*fdel)(struct soap*);
   int (*fhead)(struct soap*);
+  int (*foptions)(struct soap*);
   int (*fform)(struct soap*);
   int (*fposthdr)(struct soap*, const char*, const char*);
   int (*fresponse)(struct soap*, int, size_t);
